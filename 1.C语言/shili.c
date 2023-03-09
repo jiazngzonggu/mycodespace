@@ -7,6 +7,7 @@
 #include<stdio.h>
 #include <stdlib.h>
 #include<string.h>
+
 //题目：有 1、2、3、4 四个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
 void shili1()
 {
@@ -1285,5 +1286,569 @@ void shili54()
 	printf("%o\n%o\n", a, d);
 
 }
+
+
+//题目：学习使用按位取反~。
+void shili55()
+{
+	int a, b;
+	a = 234;	//0000 0000 0000 0000 0000 0000 1110 1010
+				//1111 1111 1111 1111 1111 1111 0001 0101
+	b = ~a;
+	printf("a 的按位取反值为（十进制） %d\n", b);
+	a = ~a;
+	printf("a 的按位取反值为（十六进制) %x\n", a);
+
+	
+}
+
+
+//题目：画图，学用circle画圆形。
+void shili56()
+{
+	
+
+}
+
+
+//题目：画图，学用line画直线（在TC中实现）。
+void shili57()
+{
+
+
+}
+
+//题目：打印出杨辉三角形（要求打印出10行）。
+void shili61()
+{
+	int i, j;
+	int a[10][10];
+	printf("\n");
+	for (i = 0; i < 10; i++)
+	{
+		a[i][0] = 1;
+		a[i][i] = 1;
+	}
+	for (i = 2; i < 10; i++)
+	{
+		for (j = 1; j < i; j++)
+		{
+			a[i][j] = a[i - 1][j - 1] + a[i - 1][j];
+		}
+	}
+	for (i = 0; i < 10; i++)
+	{
+		for (j = 0; j <= i; j++)
+		{
+			printf("%5d", a[i][j]);
+		}
+		printf("\n");
+	}
+
+}
+
+
+//题目：输入数组，最大的与第一个元素交换，最小的与最后一个元素交换，输出数组。
+//void fun(int *s, int n)
+//{
+//	int i;
+//	int max = s[0];
+//	int a = 0;
+//	for (i = 0; i < n; i++)
+//	{
+//		if (s[i] > max)
+//		{
+//			max = s[i];
+//			a = i;
+//		}
+//	}
+//	s[a] = s[0];
+//	s[0] = max;
+//	int j;
+//	int min = s[n - 1];
+//	int b = n - 1;
+//	for (j = 0; j < n; j++)
+//	{
+//		if (s[j] < min)
+//		{
+//			min = s[j];
+//			b = j;
+//		}
+//
+//	}
+//	s[b] = s[n - 1];
+//	s[n - 1] = min;
+//}
+//
+//void printf_s(int *s, int n)
+//{
+//	int i;
+//	for (i = 0; i < n; i++)
+//		printf("%d", s[i]);
+//	printf("\n");
+//
+//}
+
+void shili67()
+{
+	int s[20];
+	int i, n;
+	printf("设置数组长度(<20):");
+	scanf("%d", &n);
+	printf("输入 %d 个元素:\n", n);
+	for (i = 0; i < n; i++)
+		scanf("%d", &s[i]);
+	fun(s, n);
+	printf_s(s, n);
+}
+
+
+//题目：有 n个整数，使其前面各数顺序向后移 m 个位置，最后m个数变成最前面的 m 个数。
+//void shili68()
+//{
+//	int arr[20];
+//	int i, n, offset;
+//	
+//	//输入数组大小和数组内容
+//	printf("Total numbers?\n");
+//	scanf("%d", &n);
+//	printf("Input %d numbers.\n", n);
+//	for (i = 0; i < n; ++i)
+//		scanf("%d", &arr[i]);
+//
+//	//输入滚动偏移量
+//	printf("Set your offset.\n");
+//	scanf("%d", &offset);
+//	printf("offset is %d.\n", offset);
+//
+//	//打印滚动前数组
+//	print_arr(arr, n);
+//
+//	//滚动数组并打印
+//	move(arr, n, offset);
+//	printf_arr(arr, n);
+//}
+//
+////打印数组
+//void print_arr(int array[], int n)
+//{
+//	int i;
+//	for (i = 0; i < n; ++i)
+//		printf("%4d", array[i]);
+//	printf("\n");
+//}
+
+//滚动数组
+//void move(int array[], int n, int offset)
+//{
+//	int *p, *arr_end;
+//	arr_end = array + n;	//数组最后一个元素的下一个位置
+//	int last;
+//	while (offset)
+//	{
+//		last = *(arr_end - 1);	//向右滚动一位
+//		for (p = arr_end - 1; p != array; --p)
+//		{
+//			*p = *(p - 1);
+//		}
+//		*array = last;
+//		--offset;
+//	}
+//}
+//
+//
+////有n个人围成一圈，顺序排号。从第一个人开始报数（从1到3报数），凡报到3的人退出圈子，问最后留下的是原来第几号的那位
+//void shili69()
+//{
+//	int num[50], n, *p, j, loop, i, m, k;
+//	printf("请输入这一圈人的数量:\n");
+//	scanf("%d", &n);
+//	p = num;
+//
+//	//开始给这些人编号
+//	for (j = 0; j < n; j++)
+//	{
+//		*(p + j) = j + 1;
+//	}
+//	i = 0;	//i用于计数，即让指针后移
+//	m = 0;	//m记录退出圈子的人数
+//	k = 0;	//k报数1,2,3
+//	
+//	//当退出的人数不打野总人数时，即留下的人数至少是一个人
+//	//这句不能写成m<n，因为假设有8人，当退出6人时，此时还是进行人数退出，即m++
+//	//这时是7<8,剩下的一个人自己喊1,2,3，那么他就退出了，将不会有输出
+//	while (m < n - 1)
+//	{
+//		if (0 != *(p + i) )	//如果个人的头上编号不是0就开始报数加1，这里采用的方法是报数为3的人头上编号重置为0
+//		{
+//			k++;
+//		}
+//		if (3 == k)
+//		{
+//			k = 0;	//报数清零，即下一个人从1开始报数
+//			*(p + i) = 0;//将报数为3的人编号重置为0
+//			m++;
+//		}
+//
+//		//指针后移
+//		++i;
+//		//这句很关键，如果到了队尾，就熬使指针重新指向对头
+//		//并且它只能放在i++后面，因为只有i++了才有可能i==n
+//		if (i == n)
+//		{
+//			i = 0;
+//		}
+//	}
+//	printf("现在剩下的人是:");
+//	for (loop = 0; loop < n; ++loop)
+//	{
+//		if (num[loop] != 0)
+//		{
+//			printf("%2d号\n", num[loop]);
+//		}
+//	}
+//}
+
+
+//题目：写一个函数，求一个字符串的长度，在 main 函数中输入字符串，并输出其长度。
+//求字符串长度
+int length(char* s)
+{
+	int i = 0;
+	while (*s != '\0')
+	{
+		i++;
+		s++;
+	}
+	return i;
+}
+
+void shili70()
+{
+	int len;
+	char str[20];
+	printf("请输入字符串:\n");
+	scanf("%s", str);
+	len = length(str);
+	printf("字符串有 %d 个字符。", len);
+}
+
+
+//题目：编写input()和output()函数输入，输出5个学生的数据记录。
+//typedef struct
+//{
+//	char name[20];
+//	char sex[5];
+//	int age;
+//}Stu;
+//
+//void input(Stu* stu)
+//{
+//	int i;
+//	for (i = 0; i < 5; ++i)
+//	{
+//		scanf("%s%s%d", stu[i].name, stu[i].sex, &(stu[i].age));
+//	}
+//}
+//
+//void output(Stu* stu)
+//{
+//	int i;
+//	for (i = 0; i < 5; ++i)
+//	{
+//		printf("%s%s%d", stu[i].name, stu[i].sex, stu[i].age);
+//	}
+//}
+//
+//voidshili71()
+//{
+//	Stu stu[5];
+//	printf("请输入5个学生的信息：姓名 性别 年龄：\n");
+//	input(stu);
+//	printf("5个学生的信息如下：\n姓名  性别  年龄\n");
+//	output(stu);
+//	system("pause");
+//}
+//
+////题目：创建一个链表。
+//typedef struct LNode
+//{
+//	int data;
+//	struct LNode *next;
+//}LNode,*LinkList;
+//
+//void print(LinkList h)
+//{
+//	LinkList p = h->next;
+//	while (p != NULL)
+//	{
+//		printf("%d ", p->data);
+//		p = p->next;
+//	}
+//}
+//
+//LinkList CreateList(int n)
+//{
+//	LinkList L, p, q;
+//	int i;
+//	L = (LNode*)malloc(sizeof(LNode));
+//	if (!L)
+//		return 0;
+//	L->next = NULL;
+//	q = L;
+//	for (i = 0; i <= n; ++i)
+//	{
+//		p = (LinkList)malloc(sizeof(LNode));
+//		printf("请输入第%d个元素的值:", i);
+//		scanf("%d", &(p->data));
+//		p->next = NULL;
+//		q->next = p;
+//		q = p;
+//	}
+//	return L;
+//}
+//
+//void shili72()
+//{
+//	LinkList Head = NULL;
+//	int n;
+//	scanf("%d", &n);
+//	Head = CreateList(n);
+//
+//	printf("刚刚建立的各个链表元素的值为:\n");
+//	print(Head);
+//
+//	printf("\n\n");
+//	system("pause");
+//
+//}
+
+
+//题目：反向输出一个链表。
+typedef struct LNode
+{
+	int data;
+	struct LNode *next;
+}LNode,*LinkList;
+
+//打印链表
+void print(LinkList h)
+{
+	LinkList p = h;
+	while (p != NULL)
+	{
+		printf("%d ", p->data);
+		p = p->next;
+	}
+}
+
+//反向打印链表
+void print1(LinkList h)
+{
+	LinkList p = h;
+	if (NULL == p)
+		return;
+	print1(p->next);
+	printf("%d ", p->data);
+}
+
+
+//创建链表
+LinkList CreateList(int n)
+{
+	LinkList L, p, q;
+	int i;
+	L = (LNode*)malloc(sizeof(LNode));	//申请堆内存	
+	//判断空内存
+	if (!L)
+		return 0;
+	//下一个指针置为空
+	L->next = NULL;
+	//把头指针赋给q
+	q = L;
+	//循环输入要创建的链表
+	for (i = 1; i <= n; i++)
+	{
+		p= (LNode*)malloc(sizeof(LNode));	//申请堆内存	
+		printf("请输入第%d个元素的值:", i);
+		scanf("%d", &(p->data));
+		p->next = NULL;
+		q->next = p;
+		q = p;
+	}
+	return L;
+}
+
+
+void shili73()
+{
+	LinkList Head = NULL;
+	int n;
+	printf("请输入要创建链表结点数量:");
+	scanf("%d", &n);
+	Head = CreateList(n);
+
+	printf("刚刚建立的各个链表元素的值为:\n");
+
+	//打印链表
+	print(Head->next);
+	printf("\n\n");
+
+	//反向打印链表
+	printf("反向打印链表:\n");
+	print1(Head->next);
+
+	system("pause");
+
+}
+
+
+//题目：连接两个链表
+struct list
+{
+	int data;
+	struct list *next;
+};
+
+typedef struct list node;
+typedef node *link;
+
+link delete_node(link pointer, link tmp)
+{
+	if (NULL == tmp->next->next)	//delete last node
+		tmp->next = NULL;
+	else
+	{	//delete the other node
+		tmp->next = tmp->next->next;
+	}
+	return pointer;
+}
+
+void selection_sort(link pointer, int num)
+{
+	link tmp, btmp;
+	int i, min;
+	for (i = 0; i < num; ++i)
+	{
+		tmp = pointer;
+		min = tmp->data;
+		btmp = NULL;
+		while (tmp->next)
+		{
+			if (min > tmp->next->data)
+			{
+				min = tmp->next->data;
+				btmp = tmp;
+			}
+			tmp = tmp->next;
+		}
+		printf("\40: %d\n", min);
+		pointer = delete_node(pointer, btmp);
+	}
+}
+
+link create_list(int array[], int num)
+{
+	link tmp1, tmp2, pointer;
+	int i;
+	pointer = (link)malloc(sizeof(node));
+	pointer->data = array[0];
+	tmp1 = pointer;
+	for (i = 1; i < num; ++i)
+	{
+		tmp2 = (link)malloc(sizeof(node));
+		tmp2->next = NULL;
+		tmp2->data = array[i];
+		tmp1->next = tmp2;
+		tmp1 = tmp1->next;
+	}
+	return pointer;
+}
+
+link concatenate(link pointer1, link pointer2)
+{
+	link tmp;
+	tmp = pointer1;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = pointer2;
+	return pointer1;
+}
+
+void shili74()
+{
+	int arr1[] = { 3,12,8,9,11 };
+	link ptr;
+	ptr = create_list(arr1, 5);
+	selection_sort(ptr, 5);
+
+}
+
+//题目：输入一个整数，并将其反转后输出。
+void shili75()
+{
+	int n, reversedNumber = 0, remainder;
+	printf("请输入一个整数:");
+	scanf("%d", &n);
+	while (n != 0)
+	{
+		remainder = n % 10;
+		reversedNumber = reversedNumber * 10 + remainder;
+		n /= 10;
+	}
+	printf("反转后的整数：%d", reversedNumber);
+
+
+}
+
+//题目：编写一个函数，输入n为偶数时，调用函数求1 / 2 + 1 / 4 + ... + 1 / n, 当输入n为奇数时，调用函数1 / 1 + 1 / 3 + ... + 1 / n(利用指针函数)
+
+
+
+//题目：填空练习（指向指针的指针）。
+void shili77()
+{
+	const char *s[] = { "man","woman","girl","boy","sister" };
+	const char **q;
+	int k;
+	for (k = 0; k < 5; ++k)
+	{
+		q = &s[k];
+		printf("%s\n", *q);
+	}
+
+}
+
+//题目：找到年龄最大的人，并输出。请找出程序中有什么问题。
+//struct man
+//{
+//	char name[20];
+//	int age;
+//}person[3] = {"li",18,"wang",25,"sun",22};
+//
+//void shili78()
+//{
+//	struct man *q, *p;
+//	int i, m = 0;
+//	p = person;
+//	for (i = 0; i < 3; i++)
+//	{
+//		if (m < p->age)
+//		{
+//			m = p->age;
+//			q = p;
+//		}
+//		p++;
+//	}
+//	printf("%s %d\n", q->name, q->age);
+//
+//}
+
+
+//
+//练习实例79
+//题目：字符串排序。
+
+
 
 
