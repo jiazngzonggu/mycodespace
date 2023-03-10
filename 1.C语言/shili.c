@@ -7,7 +7,7 @@
 #include<stdio.h>
 #include <stdlib.h>
 #include<string.h>
-
+#include <time.h>
 //题目：有 1、2、3、4 四个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
 void shili1()
 {
@@ -1045,7 +1045,7 @@ void shili42()
 	{
 		printf("num 变量为 %d \n", num);
 		num++;
-		{//内置模块num和外部num不是同一个变量
+		{//内置模块num和外部num不是同一个变量，变量的最近原则
 			auto int num = -1;
 			printf("内置模块num变量为%d.\n", num);
 			//num++;
@@ -1844,10 +1844,657 @@ void shili77()
 //
 //}
 
+//********************************************************************************
 
 //
 //练习实例79
 //题目：字符串排序。
+
+void swap(char  *str1, char *str2)
+{
+	char tem[20];
+	strcpy(tem, str1);
+	strcpy(str1, str2);
+	strcpy(str2, tem);
+}
+
+void shili79()
+{
+	char str1[20], str2[20], str3[20];
+	printf("请输入3个字符串，每个字符串以回车结束！:\n");
+	fgets(str1, (sizeof str1 / sizeof str1[0]), stdin);
+	fgets(str2, (sizeof str2 / sizeof str2[0]), stdin);
+	fgets(str3, (sizeof str3 / sizeof str3[0]), stdin);
+
+	if (strcmp(str1, str2) > 0)
+	{
+		swap(str1, str2);
+	}
+	if (strcmp(str2, str3) > 0)
+	{
+		swap(str2, str3);
+	}
+	if (strcmp(str1, str2) > 0)
+	{
+		swap(str1, str2);
+	}
+
+	printf("排序后的结果为:\n");
+	printf("%s\n%s\n%s\n", str1, str2, str3);
+
+}
+
+
+//题目：海滩上有一堆桃子，五只猴子来分。
+//第一只猴子把这堆桃子平均分为五份，
+//多了一个，这只 猴子把多的一个扔入海中，
+//拿走了一份。第二只猴子把剩下的桃子又平均分成五份，
+//又多了 一个，它同样把多的一个扔入海中，拿走了一份，
+//第三、第四、第五只猴子都是这样做的， 问海滩上原来最少有多少个桃子？
+
+void shili80()
+{
+	int x, i = 0, j = 1;
+	while (i < 5)
+	{
+		x = 4 * j;
+		for (i = 0; i < 5; ++i)
+		{
+			if (x % 4 != 0)
+			{
+				break;
+			}
+			x = (x / 4) * 5 + 1;
+		}
+		++j;
+	}
+	printf("%d\n", x);
+}
+
+
+//题目：809* ? ? = 800 * ? ? +9 * ? ? 其中 ? ? 
+//代表的两位数, 809 * ? ? 为四位数，8 * ? ? 的结果为两位数，
+//9 * ? ? 的结果为3位数。求 ? ? 代表的两位数，及809 * ? ? 后的结果。
+
+void output(long int b, long int i)
+{
+	printf("\n%ld = 800 * %ld + 9*%ld\n", b, i, i);
+}
+
+void ShiLi81()
+{
+	void output(long int b, long int i);
+
+	long int a, b, i;
+	a = 809;
+	for (i = 10; i < 100; ++i)
+	{
+		b = i * a;
+		if (b >= 1000 && b <= 10000 && 8 * i < 100 && 9 * i >= 100)
+		{
+			output(b, i);
+		}
+	}
+}
+
+
+//题目：八进制转换为十进制
+void ShiLi82()
+{
+	int n = 0, i = 0;
+	char s[20];
+	printf("请输入一个八进制数:\n");
+	gets(s);
+	while (s[i] != '\0')
+	{
+		n = n * 8 + s[i] - '0';
+		++i;
+	}
+	printf("刚输入的八进制数转化为十进制为\n%d\n", n);
+
+
+}
+
+
+//题目：求0—7所能组成的奇数个数。
+void ShiLi83()
+{
+	//sum的初始值为4表示，只有一位数字组成的奇数个数为4个
+	long sum = 4, s = 4;
+	int j;
+	for (j = 2; j <= 8; ++j)
+	{
+		printf("%d位数为奇数的个数%ld\n", j - 1, s);
+		if (j <= 2)
+		{
+			s *= 7;
+		}
+		else
+		{
+			s *= 8;
+		}
+		sum += s;
+	}
+	printf("%d位数为奇数的个数%ld\n", j - 1, s);
+	printf("奇数的总个数为:%ld\n", sum);
+
+}
+
+//题目：一个偶数总能表示为两个素数之和。
+int Isprimer(unsigned int n)
+{
+	int i;
+	if (n < 4)
+	{
+		return 1;
+	}
+	else if (0 == n % 2)
+	{
+		return 0;
+	}
+	else
+	{
+		for (i = 3; i < sqrt(n) + 1; ++i)
+		{
+			if (0 == n % i)
+			{
+				return 0;
+			}
+		}
+	}
+
+}
+
+
+//判断一个素数能被几个9整除。
+void ShiLi85()
+{
+	int p, i;
+	long int sum = 9;
+	printf("请输入一个素数:\n");
+	scanf("%d", &p);
+	for (i = 1;; ++i)
+	{
+		if (sum%p == 0)
+		{
+			break;
+		}
+		else
+		{
+			sum = sum * 10 + 9;
+		}
+	}
+	printf("素数%d能整除%d个9组成的数%ld\n", p, i, sum);
+}
+
+//题目：两个字符串连接程序 。
+char* strconnect(char *str1, char *str2)
+{
+	char *str;
+	str = (char*)malloc(strlen(str1) + strlen(str2) + 1);
+	str[0] = '\0';
+	strcat(str, str1);
+	strcat(str, str2);
+	return str;
+}
+
+void ShiLi86()
+{
+	char str1[20], str2[20];
+	char *str;
+	puts("请输入两个字符串，用回车分开:");
+	scanf("%s%s", str1, str2);
+	str = strconnect(str1, str2);
+	puts("链接后的字符串为:");
+	puts(str);
+}
+
+//题目：回答结果（结构体变量传递）
+typedef struct student
+{
+	int x;
+	char c;
+}a1;
+
+f(struct student b)
+{
+	b.x = 20;
+	b.c = 'y';
+}
+
+void ShiLi87()
+{
+	a1 b;
+	b.x = 3;
+	b.c = 'a';
+	f(b);
+	printf("%d,%c", b.x, b.c);
+}
+
+//题目：读取7个数（1—50）的整数值，每读取一个值，程序打印出该值个数的 ＊。
+void ShiLi88()
+{
+	int n, i, j;
+	printf("请输入数字:\n");
+	for (i = 0; i < 7; ++i)
+	{
+		scanf("%d", &n);
+		if (n > 50)
+		{
+			printf("请重新输入:\n");
+			--i;
+		}
+		else
+		{
+			for (j = 0; j < n; ++j)
+			{
+				printf("*");
+			}
+		}
+		printf("\n");
+	}
+
+}
+
+//题目：某个公司采用公用电话传递数据，
+//数据是四位的整数，在传递过程中是加密的，
+//加密规则如下： 每位数字都加上5, 然后用和除以10的余数代替该数字，
+//再将第一位和第四位交换，第二位和第三位交换。
+
+void ShiLi89()
+{
+	int a, i, aa[4], t;
+	printf("请输入四位数字:");
+	scanf("%d", &a);
+	aa[0] = a % 10;
+	aa[1] = a % 100 / 10;
+	aa[2] = a % 1000 / 100;
+	aa[3] = a / 1000;
+
+	for (i = 0; i <= 3; ++i)
+	{
+		aa[i] += 5;
+		aa[i] %= 10;
+	}
+	for (i = 0; i <= 3 / 2; ++i)
+	{
+		t = aa[i];
+		aa[i] = aa[3 - i];
+		aa[3 - i] = t;
+	}
+	printf("加密后的数字:");
+	for (i = 3; i >= 0; --i)
+	{
+		printf("%d", aa[i]);
+	}
+	printf("\n");
+}
+
+//题目：专升本一题，读结果。
+void ShiLi90()
+{
+	#define M 5
+	int a[M] = { 1,2,3,4,5 };
+	int i, j, t;
+	i = 0;
+	j = M - 1;
+	while (i < j)
+	{
+		t = *(a + i);
+		*(a + i) = *(a + j);
+		*(a + j) = t;
+		++i;
+		--j;
+	}
+	for (i = 0; i < M; ++i)
+	{
+		printf("%d\n", *(a + i));
+	}
+}
+
+//题目：时间函数举例1
+void ShiLi91()
+{
+	time_t rawtime;
+	struct tm *timeinfo;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	printf("当前本地时间为:%s", asctime(timeinfo));
+
+}
+
+//题目：时间函数举例2
+void ShiLi92()
+{
+	time_t start, end;
+	int i;
+	start = time(NULL);
+	for (i = 0; i < 300000; ++i)
+	{
+		printf("\n");	//返回两个time_t型变量之间的时间间隔
+	}
+	end = time(NULL);
+
+	//输出执行时间
+	printf("时间间隔为 %6.3f\n", difftime(end, start));
+
+}
+
+//题目：时间函数举例3
+
+void ShiLi93()
+{
+	long i = 10000000L;
+	clock_t start, finish;
+	double TheTimes;
+	printf("做%ld次空循环需要的时间为", i);
+	start = clock();
+	while (i--);
+	finish = clock();
+	TheTimes = (double)(finish - start) / CLOCKS_PER_SEC;
+	printf("%f秒。\n", TheTimes);
+
+}
+
+//题目：猜谜游戏。
+void caizi(void)
+{
+	int n;
+	char begin;
+	int count = 1;
+	srand((int)time(NULL));//置随机数种子
+	int m = (rand() % 100) + 1;
+	puts("游戏开始，请输入数字:");
+	while (1)
+	{
+		scanf("%d", &n);
+		if (n == m)
+		{
+			printf("猜中了，使用了 %d 次！ \n", count);
+			if (1 == count)
+			{
+				printf("你是神级人物了!膜拜\n");
+				getchar();
+				printf("你已经达到最高级别，还需要玩吗？Y/N\n");
+				scanf("%c", &begin);
+
+				if ('Y' == begin || 'y' == begin)
+				{
+					caizi();
+				}
+				else
+				{
+					printf("谢谢，再见！\n");
+				}
+			}
+			else if (count <= 5)
+			{
+				printf("你是王级人物了！非常赞\n");
+				getchar();
+				printf("需要挑战最高级别不？Y/N\n");
+				scanf("%c", &begin);
+				if ('Y' == begin || 'y' == begin)
+				{
+					caizi();
+				}
+				else
+				{
+					printf("谢谢，再见！\n");
+				}
+			}
+			else if (count <= 10)
+			{
+				printf("你是钻石级人物了！怒赞\n");
+				getchar();
+				printf("需要挑战最高级别不？Y/N\n");
+				scanf("%c", &begin);
+				if ('Y' == begin || 'y' == begin)
+				{
+					caizi();
+				}
+				else
+				{
+					printf("谢谢，再见！\n");
+				}
+
+			}
+			else
+			{
+				getchar();
+				printf("你的技术还有待提高哦！重玩？ Y/N\n");
+				scanf("%c", &begin);
+				if ('Y' == begin || 'y' == begin)
+				{
+					caizi();
+				}
+				else
+				{
+					printf("谢谢，再见！\n");
+				}
+			}
+			break;
+		}
+		else if(n<m)
+		{
+			puts("太小了！");
+			puts("重新输入:");
+
+		}
+		else
+		{
+			puts("太大了！");
+			puts("重新输入:");
+		}
+		++count;	//计数器
+	}
+
+
+
+}
+
+void ShiLi94()
+{
+	puts("太小了！");
+	puts("重新输入:");
+}
+
+
+
+//题目：简单的结构体应用实例。
+
+struct programming
+{
+	float constant;
+	char *pointer;
+};
+
+void ShiLi95()
+{
+	struct programming  variable;
+	char string[] = "菜鸟教程:https://www.runoob.com";
+
+	variable.constant = 1.23;
+	variable.pointer = string;
+
+	printf("%f\n", variable.constant);
+	printf("%s\n", variable.pointer);
+}
+
+//题目：计算字符串中子串出现的次数 。
+void ShiLi96()
+{
+	int i, j, k, TLen, PLen, count = 0;
+	char T[50], P[10];
+	printf("请输入两个字符串，以回车隔开，母串在前，子串在后:\n");
+	gets(T);
+	gets(P);
+	TLen = strlen(T);
+	PLen = strlen(P);
+	for (i = 0; i <= TLen - PLen; ++i)
+	{
+		for (j = 0, k = i; j < PLen && P[j] == T[k]; ++j, ++k)
+		{
+			;
+		}
+		if (j == PLen)
+		{
+			++count;
+		}
+	}
+	printf("%d\n", count);
+	system("pause");
+}
+
+//题目：从键盘输入一些字符，逐个把它们送到磁盘上去，直到输入一个#为止。
+void ShiLi97()
+{
+	FILE *fp = NULL;
+	char filename[25];
+	char ch;
+	printf("输入你要保存到的文件的名称：\n");
+	gets(filename);
+	if (NULL == (fp = fopen(filename, "w")))
+	{
+		printf("error:cannot open file!\n");
+		exit(0);
+	}
+	printf("现在你可以输入你要保存的一些字符，以#结束:\n");
+	getchar();
+	while ((ch = getchar()) != '#')
+	{
+		fputc(ch, fp);
+	}
+	fclose(fp);
+	system("pause");
+
+}
+
+
+//题目：从键盘输入一个字符串，将小写字母全部转换成大写字母，
+//然后输出到一个磁盘文件"test"中保存。 
+//输入的字符串以！结束。
+void ShiLi98()
+{
+	FILE *fp = NULL;
+	char str[50];
+	int i, len;
+	printf("输入一个字符串:\n");
+	gets(str);
+	len = strlen(str);
+	
+	for (i = 0; i < len; ++i)
+	{
+		if (str[i] <= 'z' && str[i] >= 'a')
+		{
+			str[i] = 32;
+		}
+	}
+	if (NULL == (fp = fopen("test", "w")))
+	{
+		printf("error:cannot open file!\n");
+		exit(0);
+	}
+	fprintf(fp, "%s", str);
+	fclose(fp);
+	system("pause");
+
+}
+
+
+//题目：有两个磁盘文件A和B, 各存放一行字母，
+//要求把这两个文件中的信息合并（按字母顺序排列），
+//输出到一个新文件C中
+void ShiLi99()
+{
+	FILE *fa, *fb, *fc;
+
+	int i, j, k;
+	char str[100], str1[100];
+	char tem;
+	if (NULL == (fa = fopen("A.txt", "r")))	//A.txt文件需要存在
+	{
+		printf("error: connot open A file\n");
+		exit(0);
+	}
+	fgets(str, 99, fa);
+	fclose(fa);
+
+	if (NULL == (fb = fopen("B.txt", "r")))
+	{
+		printf("error: connot open B file\n");
+		exit(0);
+	}
+
+	fgets(str1, 100, fb);
+	fclose(fb);
+	strcat(str, str1);
+
+	for (i = strlen(str) - 1; i > 1; --i)
+	{
+		for (j = 0; j < i; ++j)
+		{
+			if (str[j] > str[j + 1])
+			{
+				tem = str[j];
+				str[j] = str[j + 1];
+				str[j + 1] = tem;
+			}
+		}
+	}
+
+	if (NULL == (fc = fopen("C.txt", "w")))
+	{
+		printf("error: connot open C file\n");
+		exit(0);
+	}
+	fputs(str, fc);
+	fclose(fc);
+	system("pause");
+}
+
+//题目：有五个学生，每个学生有3门课的成绩，
+//从键盘输入以上数据（包括学生号，姓名，三门课成绩），计算出平均成绩，
+//况原有的数据和计算出的平均分数存放在磁盘文件"stud"中。
+
+typedef struct
+{
+	int ID;
+	int math;
+	int English;
+	int C;
+	int avargrade;
+	char name[20];
+}Stu;
+
+void ShiLi100()
+{
+	FILE *fp;
+	Stu stu[5];
+	int i, avargrade;
+	printf("请输入5个同学的信息：学生号，姓名，3门成绩:\n");
+
+	for (i = 0; i < 5; ++i)
+	{
+		scanf("%d %s %d %d %d", &(stu[i].ID), stu[i].name, &(stu[i].math), &(stu[i].English), &(stu[i].avargrade));
+		stu[i].avargrade = (stu[i].math + stu[i].English + stu[i].C) / 3;
+	}
+	if (NULL == (fp = fopen("stud", "w")))
+	{
+		printf("error: cannot open file!\n");
+		exit(0);
+	}
+	for (i = 0; i < 5; ++i)
+	{
+		printf(fp, "%d %s %d %d %d %d\n", stu[i].ID, stu[i].name, stu[i].math, stu[i].English,stu[i].C, stu[i].avargrade);
+	}
+
+	fclose(fp);
+	sysytem("pause");
+}
+
+
+
 
 
 
